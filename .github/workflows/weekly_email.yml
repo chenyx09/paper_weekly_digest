@@ -1,0 +1,34 @@
+name: Weekly paper digest email
+
+on:
+  schedule:
+    # Mondays 9:00am Pacific = 17:00 UTC (standard time)
+    - cron: "0 17 * * 1"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Debug env presence
+        run: |
+          python - << 'PY'
+          import os
+          keys = ["EMAIL_FROM","EMAIL_TO","SENDGRID_API_KEY"]
+          for k in keys:
+              print(k, "present" if k in os.environ else "MISSING")
+          PY
+        env:
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      - run: python digest_email.py
+        env:
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
