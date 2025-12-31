@@ -19,7 +19,7 @@ jobs:
         run: |
           python - << 'PY'
           import os
-          keys = ["EMAIL_FROM","EMAIL_TO","SENDGRID_API_KEY"]
+          keys = ["EMAIL_FROM","EMAIL_TO","SENDGRID_API_KEY","OPENAI_API_KEY"]
           for k in keys:
               print(k, "present" if k in os.environ else "MISSING")
           PY
@@ -27,8 +27,10 @@ jobs:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - run: python digest_email.py
         env:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

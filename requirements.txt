@@ -1,3 +1,5 @@
 requests
 feedparser
 python-dateutil
+openai>=1.0.0
+pymupdf>=1.23.0
