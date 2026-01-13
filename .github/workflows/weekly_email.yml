@@ -1,9 +1,10 @@
 name: Weekly paper digest email
 
 on:
-  schedule:
-    # Mondays 9:00am Pacific = 17:00 UTC (standard time)
-    - cron: "0 17 * * 1"
+  false
+  # schedule:
+  #   # Mondays 9:00am Pacific = 17:00 UTC (standard time)
+  #   - cron: "0 17 * * 1"
   workflow_dispatch:
 
 jobs:
